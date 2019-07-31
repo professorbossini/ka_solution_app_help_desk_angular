@@ -8,13 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'pessoal-helpdesk';
 
-  filas = [
-    {id: 1, nome: 'Telefonia'},
-    {id: 2, nome: 'Redes'},
-    {id: 3, nome: 'Computadores'}
-  ];
-
-  adicionarFila (): void{
-    console.log("testando o adicionarFila");
-  }
+ 
 }

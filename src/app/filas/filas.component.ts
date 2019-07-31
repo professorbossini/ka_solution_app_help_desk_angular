@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {ChamadosComponent} from '../chamados/chamados.component'
 import { FilaService } from '../fila.service';
+import { Fila } from '../model/fila';
 
 @Component({
   selector: 'app-filas',
@@ -8,7 +10,14 @@ import { FilaService } from '../fila.service';
 })
 export class FilasComponent implements OnInit {
 
+  @ViewChild (ChamadosComponent) chamadosComponent: ChamadosComponent;
+  filaSelecionada: Fila;
 
+  onSelectFila (fila: Fila){
+    this.filaSelecionada = fila;
+    if (this.chamadosComponent)
+      this.chamadosComponent.atualizaFila(fila);
+  }
 
   adicionarFila (): void{
     console.log("testando o adicionarFila");

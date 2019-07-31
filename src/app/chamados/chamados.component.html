@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="titulo">Chamados</h1>
+    <table>
+        <thead>
+            <td>#</td>
+            <td>Descrição</td>
+            <td>Status</td>
+            <td>Data Abertura</td>
+            <td>Data Fechamento</td>
+            <td>Descrição Finalização</td>
+        </thead>
+        <tbody>
+            <tr *ngFor="let chamado of chamados">
+                <td>{{chamado.id}}</td>
+                <td><a routerLink="/chamados/detalhes/{{chamado.id}}">{{chamado.descricao}}</a></td>
+                <td>{{chamado.status}}</td>
+                <td>{{chamado.dataAbertura | date: 'dd/MM/yyyy'}}</td>
+                <td>{{chamado.dataFechamento | date: 'dd/MM/yyyy'}}</td>
+                <td>{{chamado.descricaoFinalizacao}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button routerLink="/chamados/{{idFila}}/adicionaChamado" class="botao-adiciona-chamado">Adicionar chamado</button>
+</div>

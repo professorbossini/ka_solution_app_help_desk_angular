@@ -1,7 +1,8 @@
 <div class="container">
     <h1 class="titulo">Filas</h1>
     <ul class="filas">
-      <li *ngFor="let fila of filaService.getFilas()">{{fila.nome}}</li>
+      <li *ngFor="let fila of filaService.getFilas()"><a routerLink="/chamados/{{fila.id}}">{{fila.nome}}</a></li>
     </ul>
     <button routerLink="/adicionaFila">Adicionar Fila</button>
-  </div>
+</div>
+<app-chamados *ngIf="filaSelecionada" [fila]="filaSelecionada"></app-chamados>

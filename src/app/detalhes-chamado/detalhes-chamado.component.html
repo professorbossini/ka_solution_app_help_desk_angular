@@ -1,0 +1,15 @@
+<div class="container">
+  <h1 class="titulo">Detalhes do chamado #{{chamado.id}}</h1>
+  <div class="detalhes-chamado">
+    <div>Descrição:{{chamado.descricao}}</div>
+    <div>Data de abertura: {{chamado.dataAbertura | date: 'dd/MM/yyyy'}}</div>
+    <div *ngIf="chamado.status == 'fechado'">
+      <div>Data de fechamento: {{chamado.dataFechamento}}</div>
+      <div>Descrição de finalização:  {{chamado.descricaoFinalizacao}}</div>
+    </div>
+  </div>
+  <div *ngIf="chamado.status =='aberto'">
+    <input type="text" [(ngModel)]="descricaoFinalizacao" placeholder="Descrição de finalização"/>
+    <button (click)="finalizaChamado(chamado.id)"  class="botao-finalizar-chamado">Finalizar</button>
+  </div>
+</div>

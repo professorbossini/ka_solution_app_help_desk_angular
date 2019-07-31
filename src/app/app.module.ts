@@ -6,17 +6,26 @@ import { AppComponent } from './app.component';
 import { FilasComponent } from './filas/filas.component';
 import { AdicionaFilaComponent } from './adiciona-fila/adiciona-fila.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ChamadosComponent } from './chamados/chamados.component';
+import { AdicionaChamadoComponent } from './adiciona-chamado/adiciona-chamado.component';
+
+import {ReactiveFormsModule} from '@angular/forms';
+import { DetalhesChamadoComponent } from './detalhes-chamado/detalhes-chamado.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     FilasComponent,
-    AdicionaFilaComponent
+    AdicionaFilaComponent,
+    ChamadosComponent,
+    AdicionaChamadoComponent,
+    DetalhesChamadoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

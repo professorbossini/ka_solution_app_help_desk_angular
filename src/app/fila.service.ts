@@ -25,6 +25,8 @@ export class FilaService {
     //...: operador spread (expande os elementos de um vetor)
     return this.filas.length <= 0 ? 1 : Math.max(...this.filas.map(fila => fila.id)) + 1;
   }
+
+  
   
   constructor() { }
 }

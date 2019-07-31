@@ -1,0 +1,8 @@
+<div class="container">
+  <h1 class="titulo">Adicionar Chamado</h1>
+  <form [formGroup]="chamadoForm" (ngSubmit)="onSubmit()">
+    <label for="descricaoChamadoInputText">Qual o seu problema?</label>
+    <input type="text" formControlName="descricaoChamado">
+    <button type="submit" [disabled]="!chamadoForm.valid">Enviar</button>
+  </form>
+</div>
