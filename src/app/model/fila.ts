@@ -1,4 +1,4 @@
 export class Fila{
-    id: number;
+    id?: number;
     nome: string;
 }

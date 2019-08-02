@@ -12,6 +12,7 @@ export class FilasComponent implements OnInit {
 
   @ViewChild (ChamadosComponent) chamadosComponent: ChamadosComponent;
   filaSelecionada: Fila;
+  filas: Fila [];
 
   onSelectFila (fila: Fila){
     this.filaSelecionada = fila;
@@ -28,6 +29,10 @@ export class FilasComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.filaService.getFilas().subscribe((filas) => {
+      console.log ("Atualizou o filas: " + filas)
+      this.filas = filas;
+    });
   }
 
 }

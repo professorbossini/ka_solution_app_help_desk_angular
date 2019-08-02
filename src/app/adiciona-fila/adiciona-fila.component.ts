@@ -15,8 +15,9 @@ export class AdicionaFilaComponent implements OnInit {
     if (this.nomeFila){
       //window.alert ("Fila adicionada com sucesso!");
       //qual id usar?
-      this.filaService.adicionaFila({id: this.filaService.nextId(), nome: this.nomeFila});
-      this.location.back();
+      this.filaService.adicionaFila({nome: this.nomeFila}).subscribe(
+        () => this.location.back()
+      );     
 
     }
     else{

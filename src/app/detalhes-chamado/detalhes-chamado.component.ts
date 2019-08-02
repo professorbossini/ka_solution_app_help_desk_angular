@@ -20,13 +20,24 @@ export class DetalhesChamadoComponent implements OnInit {
 
   ngOnInit() {
     const idChamado: number = +this.route.snapshot.paramMap.get ("idChamado");
-    this.chamado = this.chamadoService.getChamadoPeloId(idChamado);
+    //this.chamado = this.chamadoService.getChamadoPeloId(idChamado);
+    this.chamadoService.getChamadoPeloId (idChamado).subscribe( chamado => {
+      console.log ('Detalhes Chamado: ' + chamado);
+      this.chamado = chamado;
+    })
   }
 
   finalizaChamado (idChamado: number): void{
     if (confirm ("Deseja fechar o chamado?")){
-      this.chamadoService.finalizaChamado(idChamado, this.descricaoFinalizacao);
-      this.location.back();
+      //this.chamadoService.finalizaChamado(idChamado, this.descricaoFinalizacao);
+      //this.location.back();
+      this.chamadoService.getChamadoPeloId(idChamado).subscribe(
+        chamado => {
+          this.chamadoService.finalizaChamado(chamado, this.descricaoFinalizacao).subscribe(
+            () => this.location.back()
+          )
+        }
+      )
     }
   }
 

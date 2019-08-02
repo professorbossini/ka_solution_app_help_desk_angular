@@ -1,5 +1,5 @@
 export class Chamado {
-    id: number;
+    id?: number;
     descricao: string;
     status: string;
     dataAbertura: string;

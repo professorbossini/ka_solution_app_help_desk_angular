@@ -12,6 +12,12 @@ import { AdicionaChamadoComponent } from './adiciona-chamado/adiciona-chamado.co
 import {ReactiveFormsModule} from '@angular/forms';
 import { DetalhesChamadoComponent } from './detalhes-chamado/detalhes-chamado.component'
 
+import {HttpClientModule} from '@angular/common/http';
+
+
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './in-memory-data.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +31,11 @@ import { DetalhesChamadoComponent } from './detalhes-chamado/detalhes-chamado.co
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, {dataEncapsulation: false}
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -28,11 +28,17 @@ export class ChamadosComponent implements OnInit {
     //const idFila = +this.route.snapshot.paramMap.get('idFila');
     this.idFila = +this.route.snapshot.paramMap.get('idFila');
     console.log(this.idFila);
-    this.chamados = this.chamadoService.getChamadosPorId (this.idFila);
+    //this.chamados = this.chamadoService.getChamadosPorId (this.idFila);
+    this.chamadoService.getChamadosPorId(this.idFila).subscribe(chamados => 
+      this.chamados = chamados
+    )
   }
 
   atualizaFila (fila: Fila): void{
     this.fila = fila;
-    this.chamados = this.chamadoService.getChamadosPorFila(this.fila);
+    //this.chamados = this.chamadoService.getChamadosPorFila(this.fila);
+    this.chamadoService.getChamadosPorFila(this.fila).subscribe( chamados =>{
+      this.chamados = chamados;
+    })
   }
 }

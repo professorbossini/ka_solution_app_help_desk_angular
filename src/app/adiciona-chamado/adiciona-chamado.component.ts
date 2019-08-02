@@ -36,7 +36,7 @@ export class AdicionaChamadoComponent implements OnInit {
     const idFila: number = +this.route.snapshot.paramMap.get("idFila");
     const descricao: string = this.chamadoForm.get ("descricaoChamado").value;
     let chamado: Chamado = {
-      id: this.chamadoService.nextId(),
+      //id: this.chamadoService.nextId(),
       descricao: descricao,
       status: 'aberto',
       dataAbertura: Date.now().toString(),
@@ -45,7 +45,9 @@ export class AdicionaChamadoComponent implements OnInit {
       idFila: idFila
 
     };
-    this.chamadoService.adicionaChamado(chamado);
-    this.location.back();
+    this.chamadoService.adicionaChamado(chamado).subscribe(
+      () => this.location.back()
+    );
+    
   }
 }

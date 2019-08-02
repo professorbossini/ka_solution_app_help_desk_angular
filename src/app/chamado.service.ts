@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import {Chamado} from './model/chamado'
 import { Fila } from './model/fila';
+import {Observable, of} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http'
 @Injectable({
   providedIn: 'root'
 })
-export class ChamadoService {
- 
+export class ChamadoService { 
+
+  //variável definida no corpo da classe
+  httpOptions = {
+    headers: new HttpHeaders ({'Content-Type': 'application/json'})
+  }
+
+  private chamadosURL = 'api/chamados';
 
   chamados: Chamado[] = [
     {
@@ -36,20 +44,29 @@ export class ChamadoService {
       idFila: 2
     },
   ];
-  getChamados (): Chamado[]{
-    return this.chamados;
+  getChamados (): Observable<Chamado[]>{
+    //return of(this.chamados);
+    return this.httpClient.get<Chamado[]>(this.chamadosURL);
   }
 
-  getChamadosPorFila (fila: Fila): Chamado []{
-    return this.chamados.filter (chamado => chamado.idFila == fila.id);
+  getChamadoPeloId (id: number): Observable<Chamado>{
+    //return of(this.chamados.find(chamado => chamado.id == id));
+    return this.httpClient.get<Chamado>(`${this.chamadosURL}/${id}`)
   }
 
-  getChamadosPorId (idFila: number): Chamado []{
-    return this.chamados.filter (chamado => chamado.idFila == idFila);
+  getChamadosPorId (idFila: number): Observable <Chamado []>{
+    //return of(this.chamados.filter (chamado => chamado.idFila == idFila));
+    return this.httpClient.get<Chamado[]>(`${this.chamadosURL}/?idFila=${idFila}`)
   }
 
-  adicionaChamado (chamado: Chamado): void{
-    this.chamados.push(chamado);
+  getChamadosPorFila (fila: Fila): Observable<Chamado []>{
+    //return of(this.chamados.filter (chamado => chamado.idFila == fila.id));
+    return this.getChamadosPorId(fila.id);
+  }  
+
+  adicionaChamado (chamado: Chamado): Observable <Chamado>{
+    //this.chamados.push(chamado);
+    return this.httpClient.post <Chamado> (this.chamadosURL, chamado, this.httpOptions);
   }
 
   nextId (): number{
@@ -57,12 +74,10 @@ export class ChamadoService {
     Math.max (...this.chamados.map(chamado => chamado.id)) + 1;
   }
 
-  getChamadoPeloId (id: number): Chamado{
-    return this.chamados.find(chamado => chamado.id == id);
-  }
+  
 
-  finalizaChamado (id: number, descricaoFinalizacao: string): void{
-    this.chamados.forEach(chamado => {
+  /*finalizaChamado (id: number, descricaoFinalizacao: string): void{
+    /*this.chamados.forEach(chamado => {
       if (chamado.id == id){
         chamado.status = 'fechado';
         chamado.dataFechamento = Date.now().toString(),
@@ -70,5 +85,14 @@ export class ChamadoService {
       }
     });
   }
-  constructor() { }
+  */
+ finalizaChamado (chamado: Chamado, descricaoFinalizacao: string): Observable<Chamado>{
+  chamado.status = 'fechado';
+  chamado.dataFechamento = Date.now().toString(),
+  chamado.descricaoFinalizacao = descricaoFinalizacao;
+  return this.httpClient.put <Chamado> (this.chamadosURL, chamado, this.httpOptions);
+ }
+  constructor(
+    public httpClient: HttpClient
+  ) { }
 }
